@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Flash Cards Game</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+	<link rel='stylesheet' type='text/css' href='bootstrap.min.css'>
+	<link rel='stylesheet' type='text/css' href='style.css'>
+	<script type='text/javascript' src='jquery-3.5.1.min.js'></script>
+	<script type='text/javascript' src='decks.data.js'></script>
+	<script type='text/javascript' src='app.js'></script>
+</head>
+
+<body>
+
+	<div class='container' id='main-element'>
+		<h1 id='user-greeting'>Hello User</h1>
+		<!-- Initial screen. Here we collect users name and deck preferences -->
+		<div class='screen' id='game-settings'>
+			<h2 class='screen-head'>Game Settings</h2>
+
+			<div class='screen-body'>
+				<div class='form-group'>
+					<label for='exampleFormControlInput1'>Name</label>
+					<input type='text' class='form-control' id='username' value='Player 1' onchange='reset_username()'>
+				</div>
+
+				<div>
+					<label for='select-deck'>Select A Deck</label>
+				</div>
+
+				<div id='deck-options'>
+
+				</div>
+
+				<br>
+
+				<h5>Range: <input type='number' placeholder='Enter Range' class='form-control settings-question-information-inputs' id='range_start' min='0' max='999' value='10'> - <input type='number' placeholder='Enter Range' class='form-control settings-question-information-inputs' id='range' min='0' max='999' value='99'></h5>
+
+				<h5>Number of Questions: <input type='number' placeholder='Enter Number' class='form-control settings-question-information-inputs' id='length' value='5' min='1' max='999'></h5>
+
+				<button type='button' class='btn btn-primary btn-lg btn-block  game-btn' id='start-game-btn'>Start</button>
+
+			</div>
+		</div>
+
+
+		<!-- flash card  screen. Here flash card details will be shown  -->
+
+		<div id='flash-card' class='screen'>
+			<h2 class='screen-head'>Flash Card</h2>
+			<div class='screen-body'>
+				<div id='deck-progress'>
+					<span id='correctly-answered-questions'></span> / <span id='total-questions'></span>
+				</div>
+				
+				<div id='retries'>
+					<span id='question-retry-number'>0</span> repetition/s in this question
+				</div>
+
+				<div id='timer'>
+					<span id='timer-output'>0</span>s
+				</div>
+
+				<div class='alert alert-success' role='alert' id='correct-answer-message'>
+					Correct Answer
+				</div>
+
+
+				<div class='alert alert-danger' role='alert' id='wrong-answer-message'>
+					Wrong Answer
+				</div>
+				<h3 id='question'></h3>
+				<div class='form-group'>
+					<input type='text' class='form-control' id='answer' placeholder='Enter your answer here'>
+				</div>
+
+
+				<button type='button' class='btn btn-primary btn-lg btn-block game-btn' id='verify-btn'>Verify</button>
+				<button type='button' class='btn btn-warning btn-lg btn-block game-btn' id='end-game-btn'>End
+					Game</button>
+
+
+
+
+			</div>
+
+		</div>
+
+
+
+
+		<!-- show this when game is over -->
+		<div id='game-over' class='screen'>
+			<h2 class='screen-head'>Game Over</h2>
+			<div class='screen-body'>
+				<h3 id='progress-report-heading'>Your Progress Report</h3>
+
+				<table class='table table-bordered' id='progress-report-table'>
+					<thead class='thead-dark'>
+						<tr>
+							<th>Questions</th>
+							<th>Answer</th>
+							<th>Retries</th>
+							<th>Total Time</th>
+						</tr>
+					</thead>
+
+					<tbody>
+
+					</tbody>
+				</table>
+				<button type='button' class='btn btn-primary btn-lg btn-block game-btn' id='start-again-btn'>Select
+					Another Deck</button>
+				<button type='button' class='btn btn-warning btn-lg btn-block game-btn' id='redo-deck-btn'>Redo
+					Deck</button>
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+
+</html>

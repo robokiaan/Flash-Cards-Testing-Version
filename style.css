@@ -1,0 +1,130 @@
+#user-greeting {
+	text-align: center;
+	margin-top: 20px;
+	display: none;
+}
+
+#username-text {
+	color: red;
+}
+
+.game-btn {
+	margin-top: 40px;
+	border-radius: 75px;
+}
+
+#deck-progress {
+	text-align: right;
+	font-size: medium;
+	position: relative;
+	bottom: 20px;
+	right: 850px;
+	font-weight: bold;
+}
+
+#timer {
+	text-align: right;
+	font-size: medium;
+	position: relative;
+	bottom: 70px;
+	left: 40px;
+	font-weight: bold;
+}
+
+#retries {
+	text-align: center;
+	font-size: medium;
+	position: relative;
+	bottom: 40px;
+	left: 0px;
+	font-weight: bold;
+}
+
+#question {
+	text-align: center;
+	font-size: 40px;
+	margin-bottom: 40px;
+}
+
+#answer {
+	height: 4em;
+	line-height: 2em;
+}
+
+.alert {
+	margin-top: 30px;
+	text-align: center;
+	font-weight: bold;
+}
+
+#answer::placeholder {
+	font-weight: bold;
+}
+
+#game-over .screen-body {
+	padding: 40px 0;
+}
+
+.settings-question-information-inputs {
+	width: 100px;
+	display: inline-block;
+}
+
+.screen {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid black;
+	min-height: 80vh;
+	margin: 10vh;
+}
+
+.screen h2 {
+	background: black;
+	color: white;
+	text-align: center;
+	padding: 30px;
+}
+
+.screen-body {
+	margin: 20px 10vh 0 10vh;
+}
+
+#progress-report-heading {
+	margin: 0 0 30px 0;
+	text-align: center;
+}
+
+#redo-deck-btn {
+	margin-top: 30px;
+}
+
+@media only screen and (max-width: 480px) {
+	.screen-body, .screen {
+		margin: 0px;
+	}
+	#deck-progress {
+		right: 10px;
+		bottom: 10px;
+	}
+	#timer {
+		bottom: 55px;
+		left: -230px;
+	}
+	#retries {
+		bottom: 10px;
+	}
+	#user-heading {
+		visibility: hidden;
+		display: none;
+		height: 0px;
+	}
+	#question, #progress-report-heading {
+		font-size: 20px;
+	}
+	.screen-head {
+		font-size: 25px;
+	}
+	#progress-report-table {
+		font-size: 12px;
+	}
+}
