@@ -271,7 +271,7 @@ function showGameOverscreen() { //Show Progress Report
 		<tr>
 			<td colspan='2'>${length} Questions Chosen in Total</td>
 			<td>${total_retries} Total Retries Required in Total</td>
-			<td>${total_time} Seconds Required in Total</td>
+			<td>${total_time.toFixed(2)} Seconds Required in Total</td>
 		<tr>
 	`)
 	if (total_retries == 0) {
