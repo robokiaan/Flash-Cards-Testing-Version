@@ -4,5 +4,7 @@ var decks = [
     "Multiplication Deck",
     "Division Deck",
     "LCM Deck",
-    "HCF Deck"
+    "HCF Deck",
+    "Exponents",
+    "Square Roots"
 ];

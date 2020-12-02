@@ -9,11 +9,25 @@ var ONE, TWO, RES;
 var length, range, range_start = null;
 var current_flash_cards_array = [];
 var main_array = [];
+var Content;
+var SpeechRecognition = window.webkitSpeechRecognition
+var recognition = new SpeechRecognition()
 
 jQuery(document).ready(reset);
 
+function voice() {
+	console.log('speaking')
+	recognition.start()
+}
 
-function startGame() {
+recognition.onresult = function (event) {
+	Content = Number(event.results[0][0].transcript)
+	console.log(Content)
+	jQuery('#answer').val(Content)
+	jQuery('#answer').focus()
+}
+
+function startGame() { //Starting Game
 	jQuery('#game-settings').hide();
 	jQuery('#flash-card').show();
 
@@ -52,12 +66,12 @@ function startGame() {
 		random_number_two = number_array[random_number_two_index]
 		console.log(random_number_one)
 		console.log(random_number_two)
-		if (selected_deck_position == '0') {
+		if (selected_deck_position == '0') { //If user chose Addition Deck
 			var main_sum = random_number_one + ' + ' + random_number_two
 			console.log(main_sum)
 			var main_answer = Number(random_number_one) + Number(random_number_two)
 			console.log(main_answer)
-		} else if (selected_deck_position == '1') {
+		} else if (selected_deck_position == '1') { //If user chose Subraction Deck
 			if (random_number_one < random_number_two) {
 				var main_sum = random_number_two + ' - ' + random_number_one
 				console.log(main_sum)
@@ -69,53 +83,52 @@ function startGame() {
 				var main_answer = Number(random_number_one) - Number(random_number_two)
 				console.log(main_answer)
 			}
-		} else if (selected_deck_position == '2') {
+		} else if (selected_deck_position == '2') { //If user chose Multiplication Deck
 			var main_sum = random_number_one + ' x ' + random_number_two
 			console.log(main_sum)
 			var main_answer = Number(random_number_one) * Number(random_number_two)
 			console.log(main_answer)
-		} else if (selected_deck_position == '3') {
-			var main_sum = random_number_one + ' / ' + random_number_two
-			console.log(main_sum)
-			var main_answer = Number(random_number_one) / Number(random_number_two)
-			console.log(main_answer)
+		} else if (selected_deck_position == '3') { //If user chose Division Deck
 			if (random_number_one < random_number_two) {
-				var main_sum = random_number_two + ' / ' + random_number_one
-				console.log(main_sum)
-				var main_answer = Number(random_number_two) / Number(random_number_one)
-				console.log(main_answer)
+				greater_number = random_number_one
+				lesser_number = random_number_two
 			} else if (random_number_one > random_number_two) {
-				var main_sum = random_number_one + ' / ' + random_number_two
-				console.log(main_sum)
-				var main_answer = Number(random_number_one) / Number(random_number_two)
-				console.log(main_answer)
+				greater_number = random_number_two
+				lesser_number = random_number_one
 			}
-			var including_variable = main_answer.toString()
-			if (including_variable.includes('.', 0)) {
-				var point_index = including_variable.indexOf('.', 0)
-				var decemals = including_variable.substring(Number(point_index) + 1)
-				var string_decemal_one = decemals.substring(0, 2)
-				var string_decemal_two = decemals.substring(1)
-				var decemal = string_decemal_one + '.' + string_decemal_two
-				var main_decemal = Math.round(Number(decemal))
-				main_answer = including_variable.substring(0, Number(point_index)) + '.' + main_decemal
-				main_answer = Number(main_answer);
-			}
-			console.log('main answer = ' + main_answer);
-		} else if (selected_deck_position == '4') {
+			var number_one = lesser_number * greater_number
+			main_sum = number_one + '/ ' + lesser_number
+			main_answer = number_one / lesser_number
+		} else if (selected_deck_position == '4') { //If user chose LCM Deck
 			main_sum = random_number_one + ', ' + random_number_two
 			main_answer = calculate_LCM(Number(random_number_one), Number(random_number_two));
 			console.log(main_answer)
-		} else if (selected_deck_position == '5') {
+		} else if (selected_deck_position == '5') { //If user chose HCF Deck
 			main_sum = random_number_one + ', ' + random_number_two
 			main_answer = calculate_HCF(Number(random_number_one), Number(random_number_two));
 			console.log(main_answer)
+		} else if (selected_deck_position == '6') { //If user chose Exponents Deck
+			random_number_two = Math.floor(Math.random() * 2) + 2
+			main_sum = random_number_one + '^' + random_number_two
+			console.log(random_number_two)
+			main_answer = random_number_one ** random_number_two
+			console.log(main_answer)
+		} else if (selected_deck_position == '7') { //If user chose Square Root Deck
+			var squares_till_999 = []
+			for (c = 0; c < 31; c++) {
+				squares_till_999.push(i + 1)
+			}
+			var random = Math.floor(Math.random() * range)
+			random_number_one = squares_till_999[random]
+			console.log(squares_till_999)
+			main_answer = random_number_one
+			main_sum = 'Square Root of ' + random_number_one * random_number_one
 		}
 		current_flash_cards_array.push({
 			"question": main_sum,
 			"answer": main_answer,
 			"retries": 0,
-			"total_time_required": 0
+			"total_time_spent": 0
 		})
 	}
 	for (var i = 0; i < current_flash_cards_array.length; i++) {
@@ -131,7 +144,7 @@ function startGame() {
 	interval_set = setInterval(interval, 10);
 }
 
-function verifyUserAnswer() {
+function verifyUserAnswer() { //Chech Answer
 	var selected_flash_card = current_flash_cards_array[random_index];
 	var user_answer = jQuery('#answer').val()
 	jQuery('#answer').val("");
@@ -178,7 +191,7 @@ function verifyUserAnswer() {
 	}
 }
 
-function showFlashCards() {
+function showFlashCards() { //Show random questions
 	console.log(`index array length ${current_flash_cards_array.length}`)
 	if (current_flash_cards_array.length != 0) {
 		console.log("bucket is not empty.selecting a random index ")
@@ -196,16 +209,16 @@ function showFlashCards() {
 	}
 }
 
-function hideAllScreens() {
+function hideAllScreens() { //Hide all screens
 	jQuery('.screen').hide()
 }
 
-function showGameSettingsScreen() {
+function showGameSettingsScreen() { //Show Settings Screen
 	jQuery('#game-settings').show();
 	reset
 }
 
-function createDeckOptionsForGameSetting() {
+function createDeckOptionsForGameSetting() { //Show user Decks
 	for (var i = 0; i < decks.length; i++) {
 		var deck = decks[i];
 		var checked_attribute = ''
@@ -223,11 +236,13 @@ function createDeckOptionsForGameSetting() {
 	}
 }
 
-function showGameOverscreen() {
+function showGameOverscreen() { //Show Progress Report
 
 	jQuery('#flash-card').hide()
 	jQuery('#game-over').show()
 	var tbody = jQuery('#progress-report-table tbody');
+	var total_retries = 0;
+	var total_time = 0;
 	tbody.empty();
 	clearInterval(interval_set);
 
@@ -240,9 +255,33 @@ function showGameOverscreen() {
 			<td>${flash_card.total_time_spent}</td>
 			</tr>`)
 	}
+	for (i = 0; i < length; i++) {
+		var flash_card = main_array[i]
+		total_retries += Number(flash_card.retries)
+		var calculation_time = flash_card.total_time_spent.toString().substring(0, Number(flash_card.total_time_spent.length) - 1)
+		console.log(calculation_time)
+		if (calculation_time.toString().substring(0, 1) == '.') {
+			total_time += Number('0' + calculation_time.toString().substring(-1))
+		} else {
+			total_time += Number(calculation_time)
+		}
+	}
+
+	tbody.append(`
+		<tr>
+			<td colspan='2'>${length} Questions Chosen in Total</td>
+			<td>${total_retries} Total Retries Required in Total</td>
+			<td>${total_time} Seconds Required in Total</td>
+		<tr>
+	`)
+	if (total_retries == 0) {
+		speak('You got all correct')
+	} else {
+		speak('You got ' + retries + ' wrong')
+	}
 }
 
-function interval() {
+function interval() { //Set Interval
 	TIME = TIME + 1;
 	ONE = TIME.toString().slice(0, -2);
 	TWO = TIME.toString().slice(-2);
@@ -250,7 +289,7 @@ function interval() {
 	jQuery("#timer-output").text(RES);
 }
 
-function shuffle(array) {
+function shuffle(array) { //Shuffle and array
 	var i = 0,
 		j = 0,
 		temp = null
@@ -263,7 +302,7 @@ function shuffle(array) {
 	}
 }
 
-function reset() { //when the browser loads the page for the first time, run the code given below
+function reset() { //when the browser loads
 	selected_deck_position = null;
 	selected_deck = null;
 	current_flash_cards_array = [];
@@ -321,7 +360,7 @@ function reset() { //when the browser loads the page for the first time, run the
 	});
 }
 
-function calculate_LCM(number_1, number_2) {
+function calculate_LCM(number_1, number_2) { //Return The LCM of two numbes
 	var greater_number, lesser_number = 0;
 	var array_1 = [];
 	var array_2 = [];
@@ -370,7 +409,7 @@ function calculate_LCM(number_1, number_2) {
 	return Number(LCM)
 }
 
-function calculate_HCF(number_1, number_2) {
+function calculate_HCF(number_1, number_2) { //Return The HCF of two numbes
 	var prime_numbers_array = [
 		2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997
 	]
@@ -398,8 +437,7 @@ function calculate_HCF(number_1, number_2) {
 				item_1_HCF = Number(string_calculation)
 			}
 		}
-		if (item_1_HCF == 'includes' || item_1_HCF == Infinity) {
-		} else {
+		if (item_1_HCF == 'includes' || item_1_HCF == Infinity) {} else {
 			array_1.push(item_1_HCF)
 		}
 	}
@@ -413,8 +451,7 @@ function calculate_HCF(number_1, number_2) {
 				item_2_HCF = Number(string_calculation)
 			}
 		}
-		if (item_2_HCF == 'includes' || item_2_HCF == Infinity) {
-		} else {
+		if (item_2_HCF == 'includes' || item_2_HCF == Infinity) {} else {
 			array_2.push(item_2_HCF)
 		}
 	}
@@ -436,7 +473,17 @@ function calculate_HCF(number_1, number_2) {
 	return Number(HCF)
 }
 
-function reset_username() {
+function reset_username() { //Reset Usrename
 	var user_name = jQuery('#username').val();
 	localStorage.setItem('flash_cards_user_name', user_name);
+}
+
+function speak(text) {
+	var SS = window.speechSynthesis
+
+    var speak_data = text
+
+    var Utter_this = new SpeechSynthesisUtterance(speak_data)
+
+    SS.speak(Utter_this)
 }

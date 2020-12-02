@@ -35,15 +35,21 @@
 
 				<br>
 
-				<h5>Range: <input type='number' placeholder='Enter Range' class='form-control settings-question-information-inputs' id='range_start' min='0' max='999' value='10'> - <input type='number' placeholder='Enter Range' class='form-control settings-question-information-inputs' id='range' min='0' max='999' value='99'></h5>
+				<h5>Range: <input type='number' placeholder='Enter Range'
+						class='form-control settings-question-information-inputs' id='range_start' min='0' max='999'
+						value='2'> - <input type='number' placeholder='Enter Range'
+						class='form-control settings-question-information-inputs' id='range' min='0' max='999'
+						value='20'></h5>
 
-				<h5>Number of Questions: <input type='number' placeholder='Enter Number' class='form-control settings-question-information-inputs' id='length' value='5' min='1' max='999'></h5>
+				<h5>Number of Questions: <input type='number' placeholder='Enter Number'
+						class='form-control settings-question-information-inputs' id='length' value='5' min='1'
+						max='999'></h5>
 
-				<button type='button' class='btn btn-primary btn-lg btn-block  game-btn' id='start-game-btn'>Start</button>
+				<button type='button' class='btn btn-primary btn-lg btn-block  game-btn'
+					id='start-game-btn'>Start</button>
 
 			</div>
 		</div>
-
 
 		<!-- flash card  screen. Here flash card details will be shown  -->
 
@@ -52,10 +58,6 @@
 			<div class='screen-body'>
 				<div id='deck-progress'>
 					<span id='correctly-answered-questions'></span> / <span id='total-questions'></span>
-				</div>
-				
-				<div id='retries'>
-					<span id='question-retry-number'>0</span> repetition/s in this question
 				</div>
 
 				<div id='timer'>
@@ -76,12 +78,13 @@
 				</div>
 
 
-				<button type='button' class='btn btn-primary btn-lg btn-block game-btn' id='verify-btn'>Verify</button>
-				<button type='button' class='btn btn-warning btn-lg btn-block game-btn' id='end-game-btn'>End
+				<button type='button' class='btn btn-primary btn-grouo-sm btn-block game-btn'
+					id='verify-btn'>Verify</button>
+				<button type='button' class='btn btn-warning btn-group-sm btn-block game-btn' id='end-game-btn'>End
 					Game</button>
 
-
-
+				<button accesskey="a" type='button' class='btn btn-outline-dark btn-block btn-lg'
+					onclick="voice()">Enable answering using voice (Alt + A)</button>
 
 			</div>
 
